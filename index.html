@@ -10,14 +10,13 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script src="https://media.twiliocdn.com/sdk/rtc/js/conversations/v0.8/twilio-rtc-conversations.min.js"></script>
     <script src="/js/video.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <div id="video-preview"></div>
+                <video id="video-preview"></video>
                 <div class="row">
                     <div class="col-xs-6">
                         <button id="start-preview" class="btn btn-default btn-block">Preview</button>
@@ -29,5 +28,7 @@
             </div>
         </div>
     </div>
+
+    <canvas id="util-canvas-1"></canvas>
 </body>
 </html>
