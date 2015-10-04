@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+    <script src="{{ url_for('static', filename='js/util.js') }}"></script>
     <script src="{{ url_for('static', filename='js/video.js') }}"></script>
 </head>
 <body>
@@ -18,11 +19,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <video id="video-preview"></video>
-                <img id="snapshot-img">
+                <!-- <img id="snapshot-img"> -->
                 <div class="row">
-                    <div class="col-xs-6">
-                        <button id="start-preview" class="btn btn-default btn-block">Preview</button>
-                    </div>
                     <div class="col-xs-6">
                         <button id="snapshot" class="btn btn-default btn-block">Snapshot</button>
                     </div>

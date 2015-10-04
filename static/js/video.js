@@ -16,26 +16,24 @@ $(function() {
     var width, height;
 
     //  local video preview
-    $('#start-preview').click(function () {
-        if (!preview_connected) {
-            navigator.getMedia( { video: true, audio: false },
-                function (stream) {
-                    if (navigator.mozGetUserMedia) {
-                        video.mozSrcObject = stream;
-                    } else {
-                        var vendorURL = window.URL || window.webkitURL;
-                        video.src = vendorURL.createObjectURL(stream);
-                    }
-                    video.play();
-                    // mark as connected
-                    preview_connected = true;
-                },
-                function (error) {
-                    console.error('Unable to access local media', error);
+    if (!preview_connected) {
+        navigator.getMedia( { video: true, audio: false },
+            function (stream) {
+                if (navigator.mozGetUserMedia) {
+                    video.mozSrcObject = stream;
+                } else {
+                    var vendorURL = window.URL || window.webkitURL;
+                    video.src = vendorURL.createObjectURL(stream);
                 }
-            );
-        };
-    });
+                video.play();
+                // mark as connected
+                preview_connected = true;
+            },
+            function (error) {
+                console.error('Unable to access local media', error);
+            }
+        );
+    };
 
     // sorthing out some width/height stuff
     $(video).on('canplay', function() {
@@ -56,14 +54,32 @@ $(function() {
     });
 
     $('#snapshot').click(function() {
-        var context = canvas.getContext('2d');
+        var ctx = canvas.getContext('2d');
         if (preview_streaming) {
             canvas.width = width;
             canvas.height = height;
-            context.drawImage(video, 0, 0, width, height);
+            ctx.drawImage(video, 0, 0, width, height);
             data = canvas.toDataURL('image/png');
-            console.log(data);
-            photo.setAttribute('src', data);
+            //photo.setAttribute('src', data);
+            
+            // ajax back to the server
+            $.ajax('/photo', {
+                type: 'POST',
+                data: data.split(',')[1],
+                processData: false,
+                complete: function(response) {
+                    //var faces = response.responseJSON.faces;
+                    //ctx = canvas.getContext('2d');
+                    //faces.forEach(function(face) {
+                    //    console.log(face);
+                    //    ctx.strokeRect(face.x, face.y, face.w, face.h);
+                    //});
+                    //data = canvas.toDataURL('image/png');
+                    //photo.setAttribute('src', data);
+                    console.log(response.responseText);
+                },
+                contentType: 'text/plain',
+            });
         } else {
             alert('Yeah. Too early cowboy!');
         }
