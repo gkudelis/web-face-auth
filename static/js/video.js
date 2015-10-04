@@ -77,6 +77,11 @@ $(function() {
                     //data = canvas.toDataURL('image/png');
                     //photo.setAttribute('src', data);
                     console.log(response.responseText);
+                    if (response.responseText == 'true') {
+                        swal("Great!", "You are authenticated.", "success")
+                    } else {
+                        swal("Sorry!", "Couldn't authenticate you.", "error")
+                    }
                 },
                 contentType: 'text/plain',
             });
