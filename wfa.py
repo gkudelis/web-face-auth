@@ -11,7 +11,8 @@ app.config['DEBUG'] = True
 
 faceshape = (80,80)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-face_classifier = pickle.load(open("model_lgrg.p", "rb"))
+#face_classifier = pickle.load(open("model_lgrg.p", "rb"))
+face_classifier = pickle.load(open("model_svm_lin.p", "rb"))
 
 
 @app.route('/')
